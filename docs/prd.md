@@ -1,4 +1,4 @@
-# AI Health Coach — Product Requirements Document
+# AI Health Coach: Product Requirements Document
 
 **Project** | AI Health Coach 
 **Version** | 1.0
