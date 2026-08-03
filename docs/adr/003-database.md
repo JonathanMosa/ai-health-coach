@@ -1,4 +1,4 @@
-# ADR 003: PostgreSQL on Backend
+# ADR 003: PostgreSQL on Database
 
 ## Status
 
