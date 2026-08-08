@@ -3,7 +3,8 @@ from rest_framework.authtoken.models import Token
 from rest_framework.response import Response
 
 from .serializers import RegisterSerializer
-
+from .serializers import CheckInSerializer
+from .models import CheckIn
 
 class RegisterView(generics.CreateAPIView):
     """Creates a User + linked UserProfile, and returns an auth token."""
@@ -28,3 +29,18 @@ class RegisterView(generics.CreateAPIView):
             },
             status=201,
         )
+
+class CheckInListCreateView(generics.ListCreateAPIView):
+    """"""
+    serializer_class = CheckInSerializer
+
+    def get_queryset(self):
+        return CheckIn.objects.filter(user=self.request.user)
+        
+
+class CheckInRetrieveUpdateDestroyView(generics.RetrieveUpdateDestroyAPIView):
+    """"""
+    serializer_class = CheckInSerializer
+    
+    def get_queryset(self):
+        return CheckIn.objects.filter(user=self.request.user)

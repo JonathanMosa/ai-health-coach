@@ -1,8 +1,10 @@
 from django.contrib.auth import get_user_model
 from django.contrib.auth.password_validation import validate_password
 from rest_framework import serializers
+from django.utils import timezone
 
 from .models import UserProfile
+from .models import CheckIn
 
 User = get_user_model()
 
@@ -41,3 +43,29 @@ class RegisterSerializer(serializers.ModelSerializer):
             fitness_goal=fitness_goal,
         )
         return user
+
+class CheckInSerializer(serializers.ModelSerializer):
+    """Creates a Check In by the User."""
+
+    date = serializers.HiddenField(default=timezone.localdate)
+    user = serializers.HiddenField(default=serializers.CurrentUserDefault())
+
+    class Meta:
+        model = CheckIn
+        fields = [
+            "sleep_hours",
+            "soreness_level",
+            "energy_level",
+            "notes",
+            "user",
+            "date"
+        ]
+        read_only_fields = [
+            "created_at",
+        ]
+
+    def to_representation(self, instance):
+        data = super().to_representation(instance)
+        data["date"] = instance.date
+        data["created_at"] = instance.created_at
+        return data
