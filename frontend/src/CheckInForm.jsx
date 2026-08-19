@@ -13,7 +13,6 @@ function CheckInForm() {
     e.preventDefault();
     setStatus("submitting");
 
-    // TODO: call api.post("checkins/", { ... }) with the four fields above
     try {
       await api.post("checkins/", {
         sleep_hours: sleepHours,
